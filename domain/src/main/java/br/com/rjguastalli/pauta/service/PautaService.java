@@ -35,5 +35,14 @@ public class PautaService {
                 .orElseThrow();
     }
 
-    //TODO: contar os votos
+    public PautaModel buscarPontuacaoPauta(Long pautaId) {
+        PautaEntity pautaEntity = pautaRepository.findById(pautaId)
+                .orElseThrow();
+        return PautaModel.builder()
+                .id(pautaEntity.getId())
+                .descricao(pautaEntity.getDescricao())
+                .dataCadastroPauta(pautaEntity.getDataCadastroPauta())
+                .build();
+    }
+
 }
