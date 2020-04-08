@@ -26,6 +26,6 @@ public class SessaoRequest {
 
     @ApiModelProperty(value = "Tempo que a sessão de votação ficará aberta.")
     @Builder.Default
-    private Integer tempoAbertura = 1;
+    private Long tempoAbertura = 1L;
 
 }

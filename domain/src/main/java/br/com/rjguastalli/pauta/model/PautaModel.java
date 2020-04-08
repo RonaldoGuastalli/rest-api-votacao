@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -15,7 +15,7 @@ public class PautaModel {
 
     private Long id;
     private String descricao;
-    private LocalDate dataCadastroPauta;
+    private LocalDateTime dataCadastroPauta;
     private Long votosContra;
     private Long votosFavor;
 }

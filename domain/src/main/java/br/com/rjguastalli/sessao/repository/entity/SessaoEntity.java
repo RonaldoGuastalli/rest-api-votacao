@@ -1,5 +1,6 @@
 package br.com.rjguastalli.sessao.repository.entity;
 
+import br.com.rjguastalli.pauta.repository.entity.PautaEntity;
 import br.com.rjguastalli.sessao.enumeration.SituacaoEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,19 +23,20 @@ public class SessaoEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "DATA_ABERTURA")
+    @ManyToOne
+    @JoinColumn(name = "PAUTA_ID")
+    private PautaEntity pautaId;
+
+    @Column(name = "DATA_ABERTURA", columnDefinition = "TIMESTAMP")
     private LocalDateTime dataAbertura;
 
-    @Column(name = "DATA_TERMINO")
+    @Column(name = "DATA_TERMINO", columnDefinition = "TIMESTAMP")
     private LocalDateTime dataTermino;
 
     @Column(name = "SITUACAO")
     @Enumerated(EnumType.ORDINAL)
     private SituacaoEnum situacao;
 
-    @Column(name = "PAUTA_ID")
-    private Long pautaId;
-
     @Column(name = "TEMPO_ABERTURA")
-    private Integer tempoAbertura;
+    private Long tempoAbertura;
 }

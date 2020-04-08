@@ -1,6 +1,7 @@
 package br.com.rjguastalli.v1.sessao.model.response;
 
 import br.com.rjguastalli.v1.pauta.model.response.PautaResponse;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,9 +17,11 @@ public class SessaoResponse {
 
     private Long id;
     private Long pautaId;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dataAbertura;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dataTermino;
-    private Integer duracao;
+    private Long duracao;
     private String situacao;
     private PautaResponse pautaResponse;
 

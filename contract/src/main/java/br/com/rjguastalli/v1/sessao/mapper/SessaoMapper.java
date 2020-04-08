@@ -27,7 +27,7 @@ public class SessaoMapper {
                 .situacao(sessaoModel.getSituacao())
                 .duracao(sessaoModel.getTempoAbertura())
                 .dataAbertura(sessaoModel.getDataAbertura())
-//                .dataTermino()
+                .dataTermino(sessaoModel.getDataAbertura().plusMinutes(sessaoModel.getTempoAbertura()))
                 .build();
     }
 

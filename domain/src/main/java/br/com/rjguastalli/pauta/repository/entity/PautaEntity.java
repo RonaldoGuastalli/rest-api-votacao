@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -23,6 +23,9 @@ public class PautaEntity {
     @Column(name = "DESCRICAO")
     private String descricao;
 
-    @Column(name = "DATA_CADASTRO")
-    private LocalDate dataCadastroPauta;
+    @Column(name = "DATA_CADASTRO", columnDefinition = "TIMESTAMP")
+    private LocalDateTime dataCadastroPauta;
+
+    @Column(name = "DATA_DESATIVACAO", columnDefinition = "TIMESTAMP")
+    private LocalDateTime dataDesativacao;
 }

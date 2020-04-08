@@ -1,12 +1,13 @@
 package br.com.rjguastalli.v1.pauta.model.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -21,10 +22,12 @@ public class PautaResponse {
     private String descricao;
 
     @ApiModelProperty(value = "Data de abertura da pauta", example = "2020-04-04")
-    private LocalDate dataCadastroPauta;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime dataCadastroPauta;
 
     @ApiModelProperty(value = "Data em que finaliza(ou) a votação.", example = "2020-04-15")
-    private LocalDate dataDesativacaoPauta;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime dataDesativacaoPauta;
 
     @ApiModelProperty(value = "Números da votação")
     @Builder.Default

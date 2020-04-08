@@ -17,7 +17,7 @@ public class SessaoModel {
     private Long id;
     private Long pautaId;
     private String situacao;
-    private Integer tempoAbertura;
+    private Long tempoAbertura;
     private LocalDateTime dataAbertura;
     private LocalDateTime dataFinalizacao;
     private PautaEntity pautaEntity;
