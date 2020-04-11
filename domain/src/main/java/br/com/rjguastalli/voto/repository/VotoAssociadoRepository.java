@@ -9,5 +9,6 @@ public interface VotoAssociadoRepository extends CrudRepository<VotoAssociadoEnt
 
     Boolean existsBySessaoIdAndCpfAssociado(Long sessaoId, String cpfAssociado);
 
-    List<VotoAssociadoEntity> findBySessaoPautaId(Long pautaId);
+    List<VotoAssociadoEntity> findBySessaoId(Long sessaoId);
+
 }

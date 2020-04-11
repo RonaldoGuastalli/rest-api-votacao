@@ -1,4 +1,4 @@
-package br.com.rjguastalli.v1.voto;
+package br.com.rjguastalli.v1.voto.enumeration;
 
 import org.springframework.util.ObjectUtils;
 
@@ -20,6 +20,16 @@ public enum VotoAssociadoEnum {
         for (VotoAssociadoEnum votoAssociadoEnum : VotoAssociadoEnum.values()) {
             if(cod == votoAssociadoEnum.getCod()){
                 return votoAssociadoEnum.getValue();
+            }
+        }
+        return null;
+    }
+
+    public static Integer toEnum(String value) {
+        if (ObjectUtils.isEmpty(value)) return null;
+        for (VotoAssociadoEnum votoAssociadoEnum : VotoAssociadoEnum.values()) {
+            if (votoAssociadoEnum.getValue().equals(value)) {
+                return votoAssociadoEnum.getCod();
             }
         }
         return null;

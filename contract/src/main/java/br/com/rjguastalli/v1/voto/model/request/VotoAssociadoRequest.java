@@ -20,7 +20,7 @@ public class VotoAssociadoRequest {
 
     @NotNull(message = "Informar o voto")
     @ApiModelProperty(value = "Voto do associado",
-            allowableValues = "range[0, 1]", required = true)
-    private Integer voto;
+            allowableValues = "SIM ou NAO", required = true)
+    private String voto;
 
 }

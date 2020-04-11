@@ -23,6 +23,7 @@ public class PautaMapper {
                 .id(pautaModel.getId())
                 .descricao(pautaModel.getDescricao())
                 .dataCadastroPauta(pautaModel.getDataCadastroPauta())
+                .sessoes(pautaModel.getSessoes())
                 .build();
     }
 }

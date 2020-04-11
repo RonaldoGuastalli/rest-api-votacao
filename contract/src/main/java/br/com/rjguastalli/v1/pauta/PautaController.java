@@ -39,7 +39,7 @@ public class PautaController {
                 .body(PautaMapper.mapToPautaResponse(pautaService.criarNovaPauta(Objects.requireNonNull(PautaMapper.mapToPautaModel(pautaRequest)))));
     }
 
-    @GetMapping(path = "/{pauta_id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(path = "/{pauta_id}/pontuacao", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "Buscar pauta a partir de um idenficador e apresentar sua pontuação.")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = PautaResponse.class),

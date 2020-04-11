@@ -3,21 +3,17 @@ package br.com.rjguastalli.voto;
 import br.com.rjguastalli.GenericException;
 import br.com.rjguastalli.model.UserInfoEnum;
 import br.com.rjguastalli.model.UserInfoResponse;
-import br.com.rjguastalli.pauta.service.PautaService;
 import br.com.rjguastalli.restclient.UserInfoRestClient;
-import br.com.rjguastalli.sessao.repository.SessaoRepository;
 import br.com.rjguastalli.sessao.repository.entity.SessaoEntity;
 import br.com.rjguastalli.sessao.service.SessaoService;
 import br.com.rjguastalli.voto.mapper.VotoAssociadoMapper;
 import br.com.rjguastalli.voto.model.VotoAssociadoModelInput;
 import br.com.rjguastalli.voto.repository.VotoAssociadoRepository;
-import br.com.rjguastalli.voto.repository.entity.VotoAssociadoEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -25,13 +21,10 @@ import java.util.Objects;
 public class VotoAssociadoService {
 
     private SessaoService sessaoService;
-    private PautaService pautaService;
-    private SessaoRepository sessaoRepository;
     private VotoAssociadoRepository votoAssociadoRepository;
     private UserInfoRestClient userInfoRestClient;
 
     public void computarVoto(Long pautaId, Long sessaoId, VotoAssociadoModelInput votoAssociadoModelInput) {
-
         verificarCpfValido(votoAssociadoModelInput.getCpf());
         verificaAssociadoJaVotou(sessaoId, votoAssociadoModelInput.getCpf());
         var sessao = sessaoService.buscarSessao(sessaoId);
@@ -61,7 +54,7 @@ public class VotoAssociadoService {
     }
 
     private void sessaoEstaNaPauta(SessaoEntity sessaoEntity, Long pautaId) {
-        if (pautaId != sessaoEntity.getPautaId().getId()) {
+        if (pautaId != sessaoEntity.getPauta().getId()) {
             throw new GenericException("Esta sessão não consta para esta pauta.", HttpStatus.BAD_REQUEST);
         }
     }
@@ -85,7 +78,4 @@ public class VotoAssociadoService {
         }
     }
 
-    private List<VotoAssociadoEntity> contabilizarVotosDaSessaoPorPauta(Long pautaId) {
-        return votoAssociadoRepository.findBySessaoPautaId(pautaId);
-    }
 }

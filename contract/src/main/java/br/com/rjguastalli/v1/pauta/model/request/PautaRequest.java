@@ -19,4 +19,10 @@ public class PautaRequest {
             example = "proposta de pagamento de dividendos semestralmente.",
             required = true)
     private String descricao;
+
+    @Builder.Default
+    private Long votosContra = 0L;
+
+    @Builder.Default
+    private Long votosFavor = 0L;
 }

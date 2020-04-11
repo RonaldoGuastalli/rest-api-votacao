@@ -1,7 +1,9 @@
 package br.com.rjguastalli.sessao.repository.entity;
 
+import br.com.rjguastalli.estatistica.entity.EstatisticaEntity;
 import br.com.rjguastalli.pauta.repository.entity.PautaEntity;
 import br.com.rjguastalli.sessao.enumeration.SituacaoEnum;
+import br.com.rjguastalli.voto.repository.entity.VotoAssociadoEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,6 +11,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -25,7 +29,7 @@ public class SessaoEntity {
 
     @ManyToOne
     @JoinColumn(name = "PAUTA_ID")
-    private PautaEntity pautaId;
+    private PautaEntity pauta;
 
     @Column(name = "DATA_ABERTURA", columnDefinition = "TIMESTAMP")
     private LocalDateTime dataAbertura;
@@ -39,4 +43,12 @@ public class SessaoEntity {
 
     @Column(name = "TEMPO_ABERTURA")
     private Long tempoAbertura;
+
+    @Builder.Default
+    @Transient
+    private List<VotoAssociadoEntity> votos = new ArrayList<>();
+
+    @Builder.Default
+    @Transient
+    private EstatisticaEntity estatisticas = new EstatisticaEntity();
 }

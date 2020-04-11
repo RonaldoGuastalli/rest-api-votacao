@@ -1,5 +1,6 @@
 package br.com.rjguastalli.v1.pauta.model.response;
 
+import br.com.rjguastalli.sessao.model.SessaoModelOut;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -29,7 +32,7 @@ public class PautaResponse {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dataDesativacaoPauta;
 
-    @ApiModelProperty(value = "Números da votação")
+    @ApiModelProperty(value = "Dados das sessões vinculados a pauta")
     @Builder.Default
-    private DadosEstatisticos votos = new DadosEstatisticos();
+    private List<SessaoModelOut> sessoes = new ArrayList<>();
 }
