@@ -1,24 +1,19 @@
 language: java
 sudo: false
-
 jdk:
-  - oraclejdk11
-
+- oraclejdk11
 before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
-    - '$HOME/.m2/repository'
-    - '$HOME/.sonar/cache'
-
+  - "$HOME/.m2/repository"
+  - "$HOME/.sonar/cache"
 addons:
   sonarcloud:
-    organization: "ronaldoguastalli"
+    organization: ronaldoguastalli
     token:
-      secure: "TjkOAMaRmQjYO3XGmeMrkM5s4ZGjVNQOHvxH2c4OWW16XIqVxecVaslRU5kpqObjxRXdYNbcwTwmxLrqjwle2dczj73Bj9uYVJ5UCXBIWCLG5Xx7HNZbciXGKI9O9l02dQMVGyXH5LBEgFmNtIA3YVDuEbzQMbaiJFuiYpTnCIx/UnoWZ37U6d4ul8YbVbTX0spJUKzMpvE4PXBQrHQfs83fqZxI4Qnr97hcbMBrnGM8/qn41on0FxjNGV/4Im75wavg5eJf0UAgdNSz6/34DWCr5uCkPEkQEyDJa7sfuAmhfgCnsqyA7axdxUdn65IKV2JxXAILAdAmeqGJc3n4PpZsMz+jqCPlItUfd4KOZFn2lBNQve/7T2/ZgWMyJKKHvZrigNmnmyIDbe8RNqbZhgjn1xypbWfdsOAH5wZ6iFpPbPsI//0G2JnyyxbaAhSGYhw5rfAzZJcUtqelWr/piXIiHbNgGfrnwDtiEHehD8P5QdRv1jMyTrYXx0YZe5cT3W66Lk2rtaq73CI8kuDag0YUXq0gxtSv+mcqJ8vjTGpeBEDKEVomhvE+CrxyGGkxtgJOB0GBH49YpXTmtB1+R0FpopdJWh5qOT+YQH8vCQ0H3TB1zN7TsZKMyJvkIwA2+HDGN0h8re5DigUzwtBt5o2Dlij/aNoPKq5OEKQFWrc="
-
+      secure: A3akzYyd7LTy0yVjdhpIq00aL5mDS2rs1c0EJLtyOGaeYFVC292APH1V1Rp4bNAxGZdnUKE3dxX8uCERMASz9cyPG3dFU2lVzqj2fECrZldZgwRsOGrEv5lQnYiX3FKYcA6GT9crdiHNYbaA34piAdYDLW0tFhNz+nUbGa9HUPX/fdX7HWnC7a55B3FR8a2jKvpO/Neol4gAh1tIuUI4e6oK2A5IXeaziUrPopXUwe4RMV6qs7bju0yt2BjerYho5yCCUdyJtZRQedc1URSlzp7w/52l8GSbD1/TYTqy8g11jKuMTfg1CgArj4TqjL5hxpnCKHsT7DIa8IyZje2c+F4tUtw1dPwpK6/TasTD65B0cINRCXotuMCa/h/p0rYBs4p1GSv3IIlfGyID+GsYr/Mn0VwiVy70bgMH6+PF9RiVov4drC/XVz4wZQ6UCc4P0uibrSzingGok2cazcoxt46l6lD3yBKidd195n5eR5U3IyEWj3GTIINyNPlFTOdT2fSTcjJCteGH6XTbtvVC+e95Pu+wKeXGxlCVpLexaRiAm22QH8t12zXkXafzj+I8vODNhkxR51Pnncu6XJg2ymTHhV8WCmNUCmbrJkgK99GbQkmGJ73UmfB7CeZmba1WtvT8+Nm6Yvb3m8xLajrHt7iJOcj/kCY7kH9x3pVNPeI=
 script:
   - ./gradlew sonarqube
 
@@ -26,8 +21,8 @@ deploy:
   provider: heroku
   app: sessao-votacao
   api_key:
-    secure: "dnyDApGfX8dTvp7X67IK0mmZm91S1CvpvhIDA5IdhvyGzJjy0UWGO50ryyExIU+sz7N/LZKyl+qk6qv5rNiIVc4/8xPJCkl2y7hLnFazF2bxzpBNM/Oo6xlY17UJZUD97Y39XxFJ6Fl11R3dMnMkV5WOlpV2WsLCJ408Ytb5gU7Y5isLDD2EgL/s12CyadFt8ZfcuTZQEaMFyNsqfz7J/USOJ7C1lp1fT6Dke6jDEGV/RuY7nHNQjjjFgRN4JJQvzUDXj3Gb7QsJfW+sjbNxyv8zDjDs1lxJHziDeOK6ef8y5apkGS95A3LaYRCJZ3aoBkUfAzZ/2uEjvhOoOx5q9fi1hfXsVkcSTUaVkjfSgbZC7UfO6SD+6Aj63G8SLTpeu5ygRHA4aqCyB0UImlZXy8Te7RdW9XCGltRH2m4MUpDCMKFHj/Xvk97ZphADyrAGv9qORdQWuXTJ+o8q0afZzmJea0tJ7cKPss+PlWelilXGgSKTcCOjBzHQ4KJkK+GEqqW3xDdbXrVn4QKZtypV14+d3omoRAEuV4eZN9vQouHbVB1H6DB42DIWBE/q/UIRVCIMhnyHt/DbnZT8Tr5acKLfcl/opW9RM2zCnGiOMl25l7J3Zag1aRllLXyaN+fLW9zR98sCw80Oc+efbl+H7/IGoXhnBfFyH3/8l9Y8cgs="
+    secure: dnyDApGfX8dTvp7X67IK0mmZm91S1CvpvhIDA5IdhvyGzJjy0UWGO50ryyExIU+sz7N/LZKyl+qk6qv5rNiIVc4/8xPJCkl2y7hLnFazF2bxzpBNM/Oo6xlY17UJZUD97Y39XxFJ6Fl11R3dMnMkV5WOlpV2WsLCJ408Ytb5gU7Y5isLDD2EgL/s12CyadFt8ZfcuTZQEaMFyNsqfz7J/USOJ7C1lp1fT6Dke6jDEGV/RuY7nHNQjjjFgRN4JJQvzUDXj3Gb7QsJfW+sjbNxyv8zDjDs1lxJHziDeOK6ef8y5apkGS95A3LaYRCJZ3aoBkUfAzZ/2uEjvhOoOx5q9fi1hfXsVkcSTUaVkjfSgbZC7UfO6SD+6Aj63G8SLTpeu5ygRHA4aqCyB0UImlZXy8Te7RdW9XCGltRH2m4MUpDCMKFHj/Xvk97ZphADyrAGv9qORdQWuXTJ+o8q0afZzmJea0tJ7cKPss+PlWelilXGgSKTcCOjBzHQ4KJkK+GEqqW3xDdbXrVn4QKZtypV14+d3omoRAEuV4eZN9vQouHbVB1H6DB42DIWBE/q/UIRVCIMhnyHt/DbnZT8Tr5acKLfcl/opW9RM2zCnGiOMl25l7J3Zag1aRllLXyaN+fLW9zR98sCw80Oc+efbl+H7/IGoXhnBfFyH3/8l9Y8cgs=
 
 notifications:
   email:
-    - guastalli31@gmail.com
+  - guastalli31@gmail.com
