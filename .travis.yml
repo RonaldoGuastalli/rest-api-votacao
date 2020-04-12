@@ -24,7 +24,7 @@ jobs:
     - stage: build
       script: ./gradlew clean build
     - stage: sonar-cloud
-      script: ./gradle sonarqube -Dsonar.projectKey=RonaldoGuastalli_sessao-votacao -Dsonar.organization=ronaldoguastalli -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=25fb5d22d70b36f9d4979cf4727be089d3c62bb9
+      script: ./gradlew sonarqube -Dsonar.projectKey=RonaldoGuastalli_sessao-votacao -Dsonar.organization=ronaldoguastalli -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=25fb5d22d70b36f9d4979cf4727be089d3c62bb9
 
 
 deploy:
