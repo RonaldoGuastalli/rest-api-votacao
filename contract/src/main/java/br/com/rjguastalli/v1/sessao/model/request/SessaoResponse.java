@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SessaoRequest {
+public class SessaoResponse {
 
     @NotNull(message = "Informe o identificador da pauta selecionada.")
     @ApiModelProperty(value = "Identificador da pauta.",

@@ -1,9 +1,7 @@
 package br.com.rjguastalli.v1.sessao;
 
-import br.com.rjguastalli.sessao.service.SessaoService;
-import br.com.rjguastalli.v1.sessao.mapper.SessaoMapper;
-import br.com.rjguastalli.v1.sessao.model.request.SessaoRequest;
-import br.com.rjguastalli.v1.sessao.model.response.SessaoResponse;
+import br.com.rjguastalli.v1.sessao.facade.SessaoContractFacade;
+import br.com.rjguastalli.v1.sessao.model.request.SessaoResponse;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,20 +19,18 @@ import javax.validation.Valid;
 @AllArgsConstructor
 public class SessaoController {
 
-    private SessaoService sessaoService;
+    private SessaoContractFacade sessaoContractFacade;
 
     @PostMapping
-    @ApiOperation(value = "Criar uma nova sessão", response = SessaoResponse.class)
+    @ApiOperation(value = "Criar uma nova sessão", response = br.com.rjguastalli.v1.sessao.model.response.SessaoResponse.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK", response = SessaoResponse.class)
+            @ApiResponse(code = 200, message = "OK", response = br.com.rjguastalli.v1.sessao.model.response.SessaoResponse.class)
     })
-    public ResponseEntity<SessaoResponse> criarSessao(@ApiParam(value = "informações da sessao da pauta selecionada.",
+    public ResponseEntity<br.com.rjguastalli.v1.sessao.model.response.SessaoResponse> criarSessao(@ApiParam(value = "informações da sessao da pauta selecionada.",
                                                                 required = true)
-                                                      @Valid @RequestBody SessaoRequest sessaoRequest) {
+                                                                                                  @Valid @RequestBody SessaoResponse sessaoRequest) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(SessaoMapper
-                        .mapToSessaoResponse(sessaoService
-                                .criarNovaSessao(SessaoMapper.mapToSessaoModel(sessaoRequest))));
+                .body(sessaoContractFacade.criarNovaSessao(sessaoRequest));
 
     }
 }

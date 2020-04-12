@@ -1,8 +1,12 @@
 language: java
 sudo: false
+install: true
 
 jdk:
-  - oraclejdk11
+- oraclejdk11
+
+before_script:
+  - chmod +x gradlew
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -10,24 +14,30 @@ before_cache:
 
 cache:
   directories:
-    - '$HOME/.m2/repository'
-    - '$HOME/.sonar/cache'
+  - "$HOME/.m2/repository"
+  - "$HOME/.sonar/cache"
+  - '$HOME/.gradle'
+  - '.gradle'
 
-addons:
-  sonarcloud:
-    organization: "ronaldoguastalli"
-    token:
-      secure: "TjkOAMaRmQjYO3XGmeMrkM5s4ZGjVNQOHvxH2c4OWW16XIqVxecVaslRU5kpqObjxRXdYNbcwTwmxLrqjwle2dczj73Bj9uYVJ5UCXBIWCLG5Xx7HNZbciXGKI9O9l02dQMVGyXH5LBEgFmNtIA3YVDuEbzQMbaiJFuiYpTnCIx/UnoWZ37U6d4ul8YbVbTX0spJUKzMpvE4PXBQrHQfs83fqZxI4Qnr97hcbMBrnGM8/qn41on0FxjNGV/4Im75wavg5eJf0UAgdNSz6/34DWCr5uCkPEkQEyDJa7sfuAmhfgCnsqyA7axdxUdn65IKV2JxXAILAdAmeqGJc3n4PpZsMz+jqCPlItUfd4KOZFn2lBNQve/7T2/ZgWMyJKKHvZrigNmnmyIDbe8RNqbZhgjn1xypbWfdsOAH5wZ6iFpPbPsI//0G2JnyyxbaAhSGYhw5rfAzZJcUtqelWr/piXIiHbNgGfrnwDtiEHehD8P5QdRv1jMyTrYXx0YZe5cT3W66Lk2rtaq73CI8kuDag0YUXq0gxtSv+mcqJ8vjTGpeBEDKEVomhvE+CrxyGGkxtgJOB0GBH49YpXTmtB1+R0FpopdJWh5qOT+YQH8vCQ0H3TB1zN7TsZKMyJvkIwA2+HDGN0h8re5DigUzwtBt5o2Dlij/aNoPKq5OEKQFWrc="
+stages:
+  - name: build
+  - name: sonar-cloud
+  - name: deploy
 
-script:
-  - ./gradlew sonarqube
-
-deploy:
-  provider: heroku
-  app: sessao-votacao
-  api_key:
-    secure: "dnyDApGfX8dTvp7X67IK0mmZm91S1CvpvhIDA5IdhvyGzJjy0UWGO50ryyExIU+sz7N/LZKyl+qk6qv5rNiIVc4/8xPJCkl2y7hLnFazF2bxzpBNM/Oo6xlY17UJZUD97Y39XxFJ6Fl11R3dMnMkV5WOlpV2WsLCJ408Ytb5gU7Y5isLDD2EgL/s12CyadFt8ZfcuTZQEaMFyNsqfz7J/USOJ7C1lp1fT6Dke6jDEGV/RuY7nHNQjjjFgRN4JJQvzUDXj3Gb7QsJfW+sjbNxyv8zDjDs1lxJHziDeOK6ef8y5apkGS95A3LaYRCJZ3aoBkUfAzZ/2uEjvhOoOx5q9fi1hfXsVkcSTUaVkjfSgbZC7UfO6SD+6Aj63G8SLTpeu5ygRHA4aqCyB0UImlZXy8Te7RdW9XCGltRH2m4MUpDCMKFHj/Xvk97ZphADyrAGv9qORdQWuXTJ+o8q0afZzmJea0tJ7cKPss+PlWelilXGgSKTcCOjBzHQ4KJkK+GEqqW3xDdbXrVn4QKZtypV14+d3omoRAEuV4eZN9vQouHbVB1H6DB42DIWBE/q/UIRVCIMhnyHt/DbnZT8Tr5acKLfcl/opW9RM2zCnGiOMl25l7J3Zag1aRllLXyaN+fLW9zR98sCw80Oc+efbl+H7/IGoXhnBfFyH3/8l9Y8cgs="
+jobs:
+  include:
+    - stage: build
+      script: ./gradlew clean build
+    - stage: sonar-cloud
+      script: ./gradlew sonarqube -Dsonar.projectKey=RonaldoGuastalli_sessao-votacao -Dsonar.organization=ronaldoguastalli -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=c90bd40b900275ec8e6587e86d3f84d128e0d0af
+    - stage: deploy
+      script: skip
+      deploy: &heroku
+        provider: heroku
+        app: sessao-votacao
+        api_key:
+          secure: dnyDApGfX8dTvp7X67IK0mmZm91S1CvpvhIDA5IdhvyGzJjy0UWGO50ryyExIU+sz7N/LZKyl+qk6qv5rNiIVc4/8xPJCkl2y7hLnFazF2bxzpBNM/Oo6xlY17UJZUD97Y39XxFJ6Fl11R3dMnMkV5WOlpV2WsLCJ408Ytb5gU7Y5isLDD2EgL/s12CyadFt8ZfcuTZQEaMFyNsqfz7J/USOJ7C1lp1fT6Dke6jDEGV/RuY7nHNQjjjFgRN4JJQvzUDXj3Gb7QsJfW+sjbNxyv8zDjDs1lxJHziDeOK6ef8y5apkGS95A3LaYRCJZ3aoBkUfAzZ/2uEjvhOoOx5q9fi1hfXsVkcSTUaVkjfSgbZC7UfO6SD+6Aj63G8SLTpeu5ygRHA4aqCyB0UImlZXy8Te7RdW9XCGltRH2m4MUpDCMKFHj/Xvk97ZphADyrAGv9qORdQWuXTJ+o8q0afZzmJea0tJ7cKPss+PlWelilXGgSKTcCOjBzHQ4KJkK+GEqqW3xDdbXrVn4QKZtypV14+d3omoRAEuV4eZN9vQouHbVB1H6DB42DIWBE/q/UIRVCIMhnyHt/DbnZT8Tr5acKLfcl/opW9RM2zCnGiOMl25l7J3Zag1aRllLXyaN+fLW9zR98sCw80Oc+efbl+H7/IGoXhnBfFyH3/8l9Y8cgs=
 
 notifications:
   email:
-    - guastalli31@gmail.com
+  - guastalli31@gmail.com
