@@ -15,7 +15,7 @@ addons:
     token:
       secure: "TjkOAMaRmQjYO3XGmeMrkM5s4ZGjVNQOHvxH2c4OWW16XIqVxecVaslRU5kpqObjxRXdYNbcwTwmxLrqjwle2dczj73Bj9uYVJ5UCXBIWCLG5Xx7HNZbciXGKI9O9l02dQMVGyXH5LBEgFmNtIA3YVDuEbzQMbaiJFuiYpTnCIx/UnoWZ37U6d4ul8YbVbTX0spJUKzMpvE4PXBQrHQfs83fqZxI4Qnr97hcbMBrnGM8/qn41on0FxjNGV/4Im75wavg5eJf0UAgdNSz6/34DWCr5uCkPEkQEyDJa7sfuAmhfgCnsqyA7axdxUdn65IKV2JxXAILAdAmeqGJc3n4PpZsMz+jqCPlItUfd4KOZFn2lBNQve/7T2/ZgWMyJKKHvZrigNmnmyIDbe8RNqbZhgjn1xypbWfdsOAH5wZ6iFpPbPsI//0G2JnyyxbaAhSGYhw5rfAzZJcUtqelWr/piXIiHbNgGfrnwDtiEHehD8P5QdRv1jMyTrYXx0YZe5cT3W66Lk2rtaq73CI8kuDag0YUXq0gxtSv+mcqJ8vjTGpeBEDKEVomhvE+CrxyGGkxtgJOB0GBH49YpXTmtB1+R0FpopdJWh5qOT+YQH8vCQ0H3TB1zN7TsZKMyJvkIwA2+HDGN0h8re5DigUzwtBt5o2Dlij/aNoPKq5OEKQFWrc="
 script:
-  - ./gradlew sonarqube
+  - "./gradlew sonarqube"
 
 deploy:
   provider: heroku
