@@ -12,7 +12,7 @@ import org.springframework.http.HttpStatus;
 @Slf4j
 @lombok.Generated
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class ResponseBodyConfig {
+public class ResponseParaBodyConfig {
 
     public static String converterParaString(final Object obj) {
         try {

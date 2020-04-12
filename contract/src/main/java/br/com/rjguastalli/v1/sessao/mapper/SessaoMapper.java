@@ -2,13 +2,12 @@ package br.com.rjguastalli.v1.sessao.mapper;
 
 import br.com.rjguastalli.sessao.model.SessaoModelIn;
 import br.com.rjguastalli.sessao.model.SessaoModelOut;
-import br.com.rjguastalli.v1.sessao.model.request.SessaoRequest;
-import br.com.rjguastalli.v1.sessao.model.response.SessaoResponse;
+import br.com.rjguastalli.v1.sessao.model.request.SessaoResponse;
 import org.springframework.util.ObjectUtils;
 
 public class SessaoMapper {
 
-    public static SessaoModelIn mapToSessaoModel(SessaoRequest sessaoRequest) {
+    public static SessaoModelIn mapToSessaoModel(SessaoResponse sessaoRequest) {
         if (ObjectUtils.isEmpty(sessaoRequest)) return null;
         return SessaoModelIn.builder()
                 .pautaId(sessaoRequest.getPautaId())
@@ -17,9 +16,9 @@ public class SessaoMapper {
                 .build();
     }
 
-    public static SessaoResponse mapToSessaoResponse(SessaoModelOut sessaoModel) {
+    public static br.com.rjguastalli.v1.sessao.model.response.SessaoResponse mapToSessaoResponse(SessaoModelOut sessaoModel) {
         if (ObjectUtils.isEmpty(sessaoModel)) return null;
-        return SessaoResponse.builder()
+        return br.com.rjguastalli.v1.sessao.model.response.SessaoResponse.builder()
                 .id(sessaoModel.getId())
                 .pauta(sessaoModel.getPautaId())
                 .situacao(sessaoModel.getSituacao())
