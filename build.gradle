@@ -111,16 +111,16 @@ subprojects {
             exclude module: 'junit'
         }
         compile('ch.qos.logback:logback-classic:1.1.7') {
-            exclude group: 'org.slf4j', module: 'slf4j-api' //by both name and group
+            exclude group: 'org.slf4j', module: 'slf4j-api'
         }
         testImplementation('org.junit.jupiter:junit-jupiter:5.6.1')
     }
 
-//    sonarqube {
-//        properties {
-//            property "sonar.projectKey", "RonaldoGuastalli_sessao-votacao"
-//        }
-//    }
+    sonarqube {
+        properties {
+            property "sonar.projectKey", "RonaldoGuastalli_sessao-votacao"
+        }
+    }
 
     task codeCoverageReport(type: JacocoReport) {
         executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
