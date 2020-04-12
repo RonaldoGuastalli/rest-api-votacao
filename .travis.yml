@@ -15,13 +15,17 @@ cache:
   - "$HOME/.m2/repository"
   - "$HOME/.sonar/cache"
 
-addons:
-  sonarcloud:
-    organization: ronaldoguastalli
-    token:
-      secure: A3akzYyd7LTy0yVjdhpIq00aL5mDS2rs1c0EJLtyOGaeYFVC292APH1V1Rp4bNAxGZdnUKE3dxX8uCERMASz9cyPG3dFU2lVzqj2fECrZldZgwRsOGrEv5lQnYiX3FKYcA6GT9crdiHNYbaA34piAdYDLW0tFhNz+nUbGa9HUPX/fdX7HWnC7a55B3FR8a2jKvpO/Neol4gAh1tIuUI4e6oK2A5IXeaziUrPopXUwe4RMV6qs7bju0yt2BjerYho5yCCUdyJtZRQedc1URSlzp7w/52l8GSbD1/TYTqy8g11jKuMTfg1CgArj4TqjL5hxpnCKHsT7DIa8IyZje2c+F4tUtw1dPwpK6/TasTD65B0cINRCXotuMCa/h/p0rYBs4p1GSv3IIlfGyID+GsYr/Mn0VwiVy70bgMH6+PF9RiVov4drC/XVz4wZQ6UCc4P0uibrSzingGok2cazcoxt46l6lD3yBKidd195n5eR5U3IyEWj3GTIINyNPlFTOdT2fSTcjJCteGH6XTbtvVC+e95Pu+wKeXGxlCVpLexaRiAm22QH8t12zXkXafzj+I8vODNhkxR51Pnncu6XJg2ymTHhV8WCmNUCmbrJkgK99GbQkmGJ73UmfB7CeZmba1WtvT8+Nm6Yvb3m8xLajrHt7iJOcj/kCY7kH9x3pVNPeI=
-script:
-  - "./gradlew sonarqube"
+stages:
+  - name: build
+  - name: sonar-cloud
+
+jobs:
+  include:
+    - stage: build
+      script: ./gradlew clean build
+    - stage: sonar-cloud
+      script: ./gradle sonarqube -Dsonar.projectKey=RonaldoGuastalli_sessao-votacao -Dsonar.organization=ronaldoguastalli -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=25fb5d22d70b36f9d4979cf4727be089d3c62bb9
+
 
 deploy:
   provider: heroku
