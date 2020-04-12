@@ -3,8 +3,6 @@ package br.com.rjguastalli.pauta.mapper;
 import br.com.rjguastalli.pauta.model.PautaModel;
 import br.com.rjguastalli.pauta.repository.entity.PautaEntity;
 import br.com.rjguastalli.sessao.model.SessaoModelOut;
-import br.com.rjguastalli.sessao.repository.entity.SessaoEntity;
-
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;

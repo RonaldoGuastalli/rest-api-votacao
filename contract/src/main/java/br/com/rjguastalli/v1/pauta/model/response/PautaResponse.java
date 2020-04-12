@@ -1,6 +1,8 @@
 package br.com.rjguastalli.v1.pauta.model.response;
 
+
 import br.com.rjguastalli.sessao.model.SessaoModelOut;
+import br.com.rjguastalli.util.Parametro;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -25,11 +27,11 @@ public class PautaResponse {
     private String descricao;
 
     @ApiModelProperty(value = "Data de abertura da pauta", example = "2020-04-04")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = Parametro.ZONE_ID)
     private LocalDateTime dataCadastroPauta;
 
     @ApiModelProperty(value = "Data em que finaliza(ou) a votação.", example = "2020-04-15")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = Parametro.ZONE_ID)
     private LocalDateTime dataDesativacaoPauta;
 
     @ApiModelProperty(value = "Dados das sessões vinculados a pauta")

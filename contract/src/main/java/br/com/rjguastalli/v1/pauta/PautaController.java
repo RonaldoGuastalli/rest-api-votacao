@@ -2,8 +2,7 @@ package br.com.rjguastalli.v1.pauta;
 
 import br.com.rjguastalli.GenericException;
 import br.com.rjguastalli.handler.response.ErrorInfo;
-import br.com.rjguastalli.pauta.service.PautaService;
-import br.com.rjguastalli.v1.pauta.mapper.PautaMapper;
+import br.com.rjguastalli.v1.pauta.facade.PautaContractFacade;
 import br.com.rjguastalli.v1.pauta.model.request.PautaRequest;
 import br.com.rjguastalli.v1.pauta.model.response.PautaResponse;
 import io.swagger.annotations.*;
@@ -14,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Objects;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 
 @RestController
@@ -23,9 +22,9 @@ import java.util.Objects;
 @AllArgsConstructor
 public class PautaController {
 
-    private PautaService pautaService;
+    private PautaContractFacade pautaContractFacade;
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(consumes = "application/json", produces = "application/json")
     @ApiOperation(value = "Criar uma nova pauta", response = PautaResponse.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = PautaResponse.class),
@@ -36,7 +35,7 @@ public class PautaController {
     public ResponseEntity<PautaResponse> criarPauta(@ApiParam(value = "Assunto da pauta.", required = true)
                                                     @Validated @RequestBody PautaRequest pautaRequest) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(PautaMapper.mapToPautaResponse(pautaService.criarNovaPauta(Objects.requireNonNull(PautaMapper.mapToPautaModel(pautaRequest)))));
+                .body(pautaContractFacade.criarNovaPauta(pautaRequest));
     }
 
     @GetMapping(path = "/{pauta_id}/pontuacao", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -49,7 +48,7 @@ public class PautaController {
     })
     public ResponseEntity<PautaResponse> buscarPauta(@ApiParam(value = "pauta_id", required = true)
                                                      @PathVariable("pauta_id") Long pautaId) {
-        return ResponseEntity.ok(PautaMapper.mapToPautaResponse((pautaService.buscarPontuacaoPauta(pautaId))));
+        return ResponseEntity.ok(pautaContractFacade.buscarPontuacaoPauta(pautaId));
     }
 
 }
