@@ -1,0 +1,33 @@
+language: java
+sudo: false
+
+jdk:
+  - oraclejdk11
+
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.sonar/cache'
+
+stages:
+  - name: build
+  - name: mutation-test
+  - name: sonar-cloud
+
+jobs:
+  include:
+    - stage: build
+      script: ./gradlew clean build
+#      script: ./gradlew sonarqube -Dsonar.projectKey=sessao-votacao -Dsonar.organization=vandersozc-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=43943874b1f042489b850331363553f0607c40eb
+
+
+deploy:
+  provider: heroku
+  app: sessao-votacao
+  api_key:
+    secure: $HEROKU_API_KEY
+
+
+notifications:
+  email:
+    - guastalli31@gmail.com
