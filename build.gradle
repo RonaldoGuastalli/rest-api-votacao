@@ -118,7 +118,7 @@ subprojects {
 
     sonarqube {
         properties {
-            property "sonar.projectKey", "RonaldoGuastalli_sessao-votacao"
+            property 'sonar.projectKey", "RonaldoGuastalli_sessao-votacao'
         }
     }
 
