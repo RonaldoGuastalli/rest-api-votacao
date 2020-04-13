@@ -9,8 +9,9 @@ buildscript {
 
 plugins {
     id 'java'
-    id "jacoco"
     id "org.sonarqube" version "2.8"
+    id 'application'
+    id "jacoco"
     id 'org.springframework.boot' version '2.2.6.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id "org.flywaydb.flyway" version "6.3.3"
@@ -118,7 +119,10 @@ subprojects {
 
     sonarqube {
         properties {
-            property 'sonar.projectKey", "RonaldoGuastalli_sessao-votacao'
+            property "sonar.sources", "src"
+            property "sonar.projectKey", "RonaldoGuastalli_sessao-votacao"
+            property "sonar.organization", "ronaldoguastalli"
+            property "sonar.host.url", "https://sonarcloud.io"
         }
     }
 
@@ -135,6 +139,10 @@ subprojects {
             csv.enabled false
             xml.enabled true
         }
+    }
+
+    jacocoTestReport {
+        dependsOn test
     }
 
 }
