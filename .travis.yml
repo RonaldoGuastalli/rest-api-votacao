@@ -32,7 +32,7 @@ jobs:
       script: ./gradlew sonarqube -Dsonar.projectKey=RonaldoGuastalli_sessao-votacao -Dsonar.organization=ronaldoguastalli -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=c90bd40b900275ec8e6587e86d3f84d128e0d0af
     - stage: deploy
       script: skip
-      deploy:
+      deploy: &heroku
         provider: heroku
         app: sessao-votacao
         api_key:
