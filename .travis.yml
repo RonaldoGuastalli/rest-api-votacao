@@ -34,11 +34,10 @@ jobs:
   include:
     - stage: build
       script: ./gradlew clean build
-
     - stage: sonar-cloud
       script:
-        - gradle jacocoTestReport
-        - gradle sonarqube -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT_KEY
+        - ./gradlew jacocoTestReport
+        - ./gradlew sonarqube -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT_KEY
     - stage: deploy
       script: skip
       deploy: &heroku
