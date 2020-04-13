@@ -19,12 +19,6 @@ cache:
     - "$HOME/.gradle"
     - ".gradle"
 
-addons:
-  sonarcloud:
-    organization: "ronaldoguastalli"
-    token:
-      secure: ${SONAR_TOKEN}
-
 stages:
   - name: build
   - name: sonar-cloud
@@ -35,9 +29,7 @@ jobs:
     - stage: build
       script: ./gradlew clean build
     - stage: sonar-cloud
-      script:
-        - ./gradlew jacocoTestReport
-        - ./gradlew sonarqube -Dsonar.login=${SONAR_TOKEN} -Dsonar.projectKey=${SONAR_PROJECT_KEY}
+      script: ./gradlew sonarqube -Dsonar.projectKey=RonaldoGuastalli_sessao-votacao -Dsonar.organization=ronaldoguastalli -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=dea3cba0c54bc876f94dff83d6b9aa5126fc9bf0
     - stage: deploy
       script: skip
       deploy: &heroku
