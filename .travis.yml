@@ -1,42 +1,38 @@
 language: java
 sudo: false
 install: true
-
 jdk:
 - oraclejdk11
-
 before_script:
   - chmod +x gradlew
-
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-
 cache:
   directories:
   - "$HOME/.m2/repository"
   - "$HOME/.sonar/cache"
-  - '$HOME/.gradle'
-  - '.gradle'
-
+  - "$HOME/.gradle"
+  - ".gradle"
 stages:
   - name: build
   - name: sonar-cloud
   - name: deploy
-
 jobs:
   include:
     - stage: build
-      script: ./gradlew clean build
+      script: "./gradlew clean build"
     - stage: sonar-cloud
-      script: ./gradlew sonarqube -Dsonar.projectKey=RonaldoGuastalli_sessao-votacao -Dsonar.organization=ronaldoguastalli -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=c90bd40b900275ec8e6587e86d3f84d128e0d0af
+      script: "./gradlew sonarqube -Dsonar.projectKey=RonaldoGuastalli_sessao-votacao
+      -Dsonar.organization=ronaldoguastalli -Dsonar.host.url=https://sonarcloud.io
+      -Dsonar.login=c90bd40b900275ec8e6587e86d3f84d128e0d0af"
     - stage: deploy
       script: skip
-      deploy: &heroku
+      deploy:
         provider: heroku
         app: sessao-votacao
         api_key:
-          secure: dnyDApGfX8dTvp7X67IK0mmZm91S1CvpvhIDA5IdhvyGzJjy0UWGO50ryyExIU+sz7N/LZKyl+qk6qv5rNiIVc4/8xPJCkl2y7hLnFazF2bxzpBNM/Oo6xlY17UJZUD97Y39XxFJ6Fl11R3dMnMkV5WOlpV2WsLCJ408Ytb5gU7Y5isLDD2EgL/s12CyadFt8ZfcuTZQEaMFyNsqfz7J/USOJ7C1lp1fT6Dke6jDEGV/RuY7nHNQjjjFgRN4JJQvzUDXj3Gb7QsJfW+sjbNxyv8zDjDs1lxJHziDeOK6ef8y5apkGS95A3LaYRCJZ3aoBkUfAzZ/2uEjvhOoOx5q9fi1hfXsVkcSTUaVkjfSgbZC7UfO6SD+6Aj63G8SLTpeu5ygRHA4aqCyB0UImlZXy8Te7RdW9XCGltRH2m4MUpDCMKFHj/Xvk97ZphADyrAGv9qORdQWuXTJ+o8q0afZzmJea0tJ7cKPss+PlWelilXGgSKTcCOjBzHQ4KJkK+GEqqW3xDdbXrVn4QKZtypV14+d3omoRAEuV4eZN9vQouHbVB1H6DB42DIWBE/q/UIRVCIMhnyHt/DbnZT8Tr5acKLfcl/opW9RM2zCnGiOMl25l7J3Zag1aRllLXyaN+fLW9zR98sCw80Oc+efbl+H7/IGoXhnBfFyH3/8l9Y8cgs=
+          secure: SjkTNfa28Gixeenfs9b4RxlEZMxx78lf27V/PKXP7lZe8H72mDsDKnnXghp9vECl24fjs9mYYi/txIXAD1f0c93LNNBAMWAO5dHwtzS1TshtmkW+jVFuT7t5du2HUJpxk0E7pg2JAIHEqhMLcpO+wR0tVjnyhsGlDG3kDQKkVlWuTHaLAla2w9ai9dnIEoC+39NrXj2htEX7jvoxUG7/6mRB5PNoT2Zh1MRC7dqgZ3opeyCo2Yh7FHE8Mhia11eitII2FotnaFvPiGWjb8qOXFrn5PRYqhQ6gPOLCx6ccSfIZ9ho+XDxnUnI9a4dDmz9QBNJVbw2W5gTuQTHlbn3aHjcFhxiQY9cg8nocErkN02vgERT35WCQkWMJ5aTIShCAnoLtgoGyiYPf8GXi0yMMG9Bb3ZGNSo2qbDhCzIPwKSyi39gsUJ+pMQ9ZladG51YVbgRxq9Wq9V0499wKW5Swwa73UMb5WRt/1xmxjSy3KMvkKR2ty6+zEPzlMEPLlnvTT91A3D6kvMbubh2GbEVrc/OBrhnWOKVbCmR6GtAAFEE7kH2rPPjIyXYrBEIEARQjqSjjUCrSPkXxl4UJ8fn4PNa2o0TZOANa7XRWTVlXuasq2SFo5vd+lTytRRkrniGc8o7cccPdc4dQepmRB8g6YlZqSMmkysIQgXGN5I9jM0=
 
 notifications:
   email:
