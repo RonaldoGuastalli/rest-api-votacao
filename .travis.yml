@@ -23,7 +23,7 @@ addons:
   sonarcloud:
     organization: "ronaldoguastalli"
     token:
-      secure: $SONAR_TOKEN
+      secure: ${SONAR_TOKEN}
 
 stages:
   - name: build
@@ -37,7 +37,7 @@ jobs:
     - stage: sonar-cloud
       script:
         - ./gradlew jacocoTestReport
-        - ./gradlew sonarqube -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT_KEY
+        - ./gradlew sonarqube -Dsonar.login=${SONAR_TOKEN} -Dsonar.projectKey=${SONAR_PROJECT_KEY}
     - stage: deploy
       script: skip
       deploy: &heroku
