@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -jar  build/libs/sessao-votacao-0.0.1-SNAPSHOT.jar -Dspring.profiles.active=prod
+web: java -Dserver.port=$PORT -jar  build/libs/sessao-votacao.jar -Dspring.profiles.active=prod
