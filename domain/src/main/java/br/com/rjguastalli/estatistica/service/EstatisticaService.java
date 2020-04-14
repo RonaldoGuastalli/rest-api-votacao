@@ -24,7 +24,7 @@ public class EstatisticaService {
         return EstatisticaEntity.builder()
                 .votoFavor(votos.stream().filter(votoAssociadoEntity -> votoAssociadoEntity.getVoto() == VOTO_SIM).count())
                 .votoContra(votos.stream().filter(votoAssociadoEntity -> votoAssociadoEntity.getVoto() == VOTO_NAO).count())
-                .total(votos.stream().count())
+                .total((long) votos.size())
                 .build();
     }
 

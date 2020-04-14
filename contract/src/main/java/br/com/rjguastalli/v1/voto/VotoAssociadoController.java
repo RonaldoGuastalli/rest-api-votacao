@@ -4,7 +4,7 @@ import br.com.rjguastalli.handler.response.ErrorInfo;
 import br.com.rjguastalli.v1.pauta.model.response.PautaResponse;
 import br.com.rjguastalli.v1.voto.mapper.VotoAssociadoMapper;
 import br.com.rjguastalli.v1.voto.model.request.VotoAssociadoRequest;
-import br.com.rjguastalli.voto.VotoAssociadoService;
+import br.com.rjguastalli.voto.service.VotoAssociadoDomainFacade;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
@@ -23,7 +23,7 @@ import javax.validation.Valid;
 @Api("Serviço para votação dos associados.")
 public class VotoAssociadoController {
 
-    private VotoAssociadoService votoAssociadoService;
+    private VotoAssociadoDomainFacade votoAssociadoDomainFacade;
 
     @PostMapping(path = "pauta/{pauta_id}/sessao/{sessao_id}/voto-sessao",
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -41,7 +41,7 @@ public class VotoAssociadoController {
 
                                                        @ApiParam(value = "Dados da sessão da pauta especificada", required = true)
                                                        @Valid @RequestBody VotoAssociadoRequest votoAssociadoRequest) {
-        votoAssociadoService.computarVoto(pautaId, sessaoId, VotoAssociadoMapper.mapToVotoAssociadoModelInput(votoAssociadoRequest));
+        votoAssociadoDomainFacade.computarVoto(VotoAssociadoMapper.mapToVotoAssociadoModelInput(pautaId, sessaoId, votoAssociadoRequest));
         return ResponseEntity.status(HttpStatus.CREATED).build();
 
     }

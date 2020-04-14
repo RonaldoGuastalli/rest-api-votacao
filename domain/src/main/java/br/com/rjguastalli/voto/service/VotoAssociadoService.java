@@ -1,14 +1,14 @@
-package br.com.rjguastalli.voto;
+package br.com.rjguastalli.voto.service;
 
 import br.com.rjguastalli.GenericException;
 import br.com.rjguastalli.model.UserInfoEnum;
 import br.com.rjguastalli.model.UserInfoResponse;
 import br.com.rjguastalli.restclient.UserInfoRestClient;
 import br.com.rjguastalli.sessao.repository.entity.SessaoEntity;
-import br.com.rjguastalli.sessao.service.SessaoService;
 import br.com.rjguastalli.voto.mapper.VotoAssociadoMapper;
-import br.com.rjguastalli.voto.model.VotoAssociadoModelInput;
+import br.com.rjguastalli.voto.model.VotoAssociadoModel;
 import br.com.rjguastalli.voto.repository.VotoAssociadoRepository;
+import br.com.rjguastalli.voto.repository.entity.VotoAssociadoEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -20,25 +20,25 @@ import java.util.Objects;
 @AllArgsConstructor
 public class VotoAssociadoService {
 
-    private SessaoService sessaoService;
     private VotoAssociadoRepository votoAssociadoRepository;
     private UserInfoRestClient userInfoRestClient;
 
-    public void computarVoto(Long pautaId, Long sessaoId, VotoAssociadoModelInput votoAssociadoModelInput) {
-        verificarCpfValido(votoAssociadoModelInput.getCpf());
-        verificaAssociadoJaVotou(sessaoId, votoAssociadoModelInput.getCpf());
-        var sessao = sessaoService.buscarSessao(sessaoId);
-        sessaoEstaNaPauta(sessao, pautaId);
-        dataDaSessaoValidaParaVotacao(sessao);
-
-        var sessaoVoto = VotoAssociadoMapper.mapToVotoAssociadoEntity(votoAssociadoModelInput);
-        if (!Objects.isNull(sessaoVoto)) {
-            sessaoVoto.setSessao(sessao);
-            votoAssociadoRepository.save(sessaoVoto);
-        }
-
-
+    protected void computarVoto(VotoAssociadoModel votoAssociadoModel, SessaoEntity sessaoEntity) {
+        verificarCpfValido(votoAssociadoModel.getCpf());
+        verificaAssociadoJaVotou(votoAssociadoModel.getSessaoId(), votoAssociadoModel.getCpf());
+        sessaoEstaNaPauta(sessaoEntity, votoAssociadoModel.getPautaId());
+        dataDaSessaoValidaParaVotacao(sessaoEntity);
+        var votoAssociadoEntity = VotoAssociadoMapper.mapToVotoAssociadoEntity(votoAssociadoModel);
+        salvarVotoAssociado(votoAssociadoEntity, sessaoEntity);
     }
+
+    private void salvarVotoAssociado(VotoAssociadoEntity votoAssociadoEntity, SessaoEntity sessaoEntity) {
+        if (!Objects.isNull(votoAssociadoEntity)) {
+            votoAssociadoEntity.setSessao(sessaoEntity);
+            votoAssociadoRepository.save(votoAssociadoEntity);
+        }
+    }
+
 
     private void verificarCpfValido(String cpf) {
         UserInfoResponse userInfoResponse = userInfoRestClient.buscarUsuario(cpf);
@@ -54,7 +54,7 @@ public class VotoAssociadoService {
     }
 
     private void sessaoEstaNaPauta(SessaoEntity sessaoEntity, Long pautaId) {
-        if (pautaId != sessaoEntity.getPauta().getId()) {
+        if (!pautaId.equals(sessaoEntity.getPauta().getId())) {
             throw new GenericException("Esta sessão não consta para esta pauta.", HttpStatus.BAD_REQUEST);
         }
     }
@@ -70,7 +70,7 @@ public class VotoAssociadoService {
     }
 
     private void verificaAssociadoJaVotou(Long sessaoId, String cpfAssociado) {
-        Boolean jaVotou = votoAssociadoRepository.existsBySessaoIdAndCpfAssociado(sessaoId, cpfAssociado);
+        boolean jaVotou = votoAssociadoRepository.existsBySessaoIdAndCpfAssociado(sessaoId, cpfAssociado);
         if (jaVotou) {
             throw new GenericException("Este CPF: "
                     .concat(cpfAssociado)

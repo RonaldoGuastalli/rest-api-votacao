@@ -9,9 +9,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class VotoAssociadoModelInput {
+public class VotoAssociadoModel {
 
     private String cpf;
     private Integer voto;
+    private Long pautaId;
+    private Long sessaoId;
 
 }
