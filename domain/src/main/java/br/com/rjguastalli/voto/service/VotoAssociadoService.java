@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -76,6 +77,10 @@ public class VotoAssociadoService {
                     .concat(cpfAssociado)
                     .concat(" já votou nesta sessão e seu voto já foi computado"), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    public List<VotoAssociadoEntity> buscarVotosDaSessaoParaAPautaEspecifica(Long pautaId) {
+        return votoAssociadoRepository.findBySessaoId(pautaId);
     }
 
 }

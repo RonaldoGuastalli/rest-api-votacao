@@ -46,4 +46,7 @@ public class PautaService {
         return PautaMapper.mapToPautaModel(pautaModel, sessaoModelOuts);
     }
 
+    public List<PautaEntity> pautas() {
+        return pautaRepository.findAll();
+    }
 }

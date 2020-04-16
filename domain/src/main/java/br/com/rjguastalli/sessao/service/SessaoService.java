@@ -68,4 +68,7 @@ public class SessaoService {
     }
 
 
+    public void atualizarSessao(SessaoEntity sessaoEntity) {
+        sessaoRepository.save(sessaoEntity);
+    }
 }
