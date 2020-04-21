@@ -1,4 +1,4 @@
-package br.com.rjguastalli;
+package br.com.rjguastalli.kafka;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

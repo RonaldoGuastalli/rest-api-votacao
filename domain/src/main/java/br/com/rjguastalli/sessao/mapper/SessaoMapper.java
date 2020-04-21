@@ -5,9 +5,12 @@ import br.com.rjguastalli.sessao.enumeration.SituacaoEnum;
 import br.com.rjguastalli.sessao.model.SessaoModelIn;
 import br.com.rjguastalli.sessao.model.SessaoModelOut;
 import br.com.rjguastalli.sessao.repository.entity.SessaoEntity;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SessaoMapper {
 
     public static SessaoEntity mapToSessaoEntity(SessaoModelIn sessaoModelIn, PautaEntity pautaEntity) {

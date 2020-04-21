@@ -1,6 +1,7 @@
 buildscript {
     repositories {
         mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:2.1.7.RELEASE"
@@ -112,13 +113,20 @@ allprojects {
         }
 
     }
+
+
 }
 
 sonarqube {
+    file("$buildDir/classes").mkdirs()
     properties {
         property 'sonar.projectKey', 'RonaldoGuastalli_sessao-votacao'
+        property 'sonar.organization', 'ronaldoguastalli'
+        property 'sonar.host.url', 'https://sonarcloud.io'
+        property 'sonar.exclusions', ["**/ApiProperties.java", "**/util/**", "**/config/**", "**/doc/**"]
     }
 }
+
 
 task codeCoverageReport(type: JacocoReport) {
     executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
@@ -129,10 +137,14 @@ task codeCoverageReport(type: JacocoReport) {
 
     reports {
         html.enabled true
-        html.destination file("${buildDir}/reports/jacoco")
+//        html.destination file("${buildDir}/reports/jacoco")
         csv.enabled false
         xml.enabled true
     }
+}
+
+codeCoverageReport.dependsOn {
+    subprojects*.test
 }
 
 

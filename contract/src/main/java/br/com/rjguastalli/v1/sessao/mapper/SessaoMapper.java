@@ -3,8 +3,11 @@ package br.com.rjguastalli.v1.sessao.mapper;
 import br.com.rjguastalli.sessao.model.SessaoModelIn;
 import br.com.rjguastalli.sessao.model.SessaoModelOut;
 import br.com.rjguastalli.v1.sessao.model.request.SessaoResponse;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.springframework.util.ObjectUtils;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SessaoMapper {
 
     public static SessaoModelIn mapToSessaoModel(SessaoResponse sessaoRequest) {

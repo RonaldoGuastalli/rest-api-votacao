@@ -5,7 +5,7 @@ import br.com.rjguastalli.pauta.repository.PautaRepository;
 import br.com.rjguastalli.sessao.service.SessaoService;
 import br.com.rjguastalli.stub.entity.PautaEntityStub;
 import br.com.rjguastalli.stub.entity.SessaoEntityStub;
-import br.com.rjguastalli.stub.entity.model.PautaModelStub;
+import br.com.rjguastalli.stub.model.PautaModelStub;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

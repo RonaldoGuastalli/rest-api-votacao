@@ -1,4 +1,4 @@
-package br.com.rjguastalli.stub.entity.model;
+package br.com.rjguastalli.stub.model;
 
 import br.com.rjguastalli.sessao.enumeration.SituacaoEnum;
 import br.com.rjguastalli.sessao.model.SessaoModelOut;

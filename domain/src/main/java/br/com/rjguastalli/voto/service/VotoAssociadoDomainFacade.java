@@ -16,9 +16,14 @@ public class VotoAssociadoDomainFacade {
 
     private VotoAssociadoService votoAssociadoService;
     private SessaoService sessaoService;
+    private RegraVotoAssociadoService regraVotoAssociadoService;
 
     public void computarVoto(VotoAssociadoModel votoAssociadoModel) {
         var sessaoEntity = sessaoService.buscarSessao(votoAssociadoModel.getSessaoId());
+        regraVotoAssociadoService.verificarCpfValido(votoAssociadoModel.getCpf());
+        regraVotoAssociadoService.verificaAssociadoJaVotou(votoAssociadoModel.getSessaoId(), votoAssociadoModel.getCpf());
+        regraVotoAssociadoService.sessaoEstaNaPauta(sessaoEntity, votoAssociadoModel.getPautaId());
+        regraVotoAssociadoService.dataDaSessaoValidaParaVotacao(sessaoEntity);
         votoAssociadoService.computarVoto(votoAssociadoModel, sessaoEntity);
     }
 

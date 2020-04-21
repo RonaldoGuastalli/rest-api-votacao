@@ -1,5 +1,7 @@
 package br.com.rjguastalli;
 
+import br.com.rjguastalli.kafka.KafkaMessage;
+import br.com.rjguastalli.kafka.KafkaProducer;
 import br.com.rjguastalli.pauta.model.PautaModel;
 import br.com.rjguastalli.pauta.repository.entity.PautaEntity;
 import br.com.rjguastalli.pauta.service.PautaService;
