@@ -1,5 +1,6 @@
 # sessao-votacao
 
+[![Build Status](https://travis-ci.com/RonaldoGuastalli/sessao-votacao.svg?branch=master)](https://travis-ci.com/RonaldoGuastalli/sessao-votacao)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=RonaldoGuastalli_sessao-votacao&metric=coverage)](https://sonarcloud.io/dashboard?id=RonaldoGuastalli_sessao-votacao)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=RonaldoGuastalli_sessao-votacao&metric=code_smells)](https://sonarcloud.io/dashboard?id=RonaldoGuastalli_sessao-votacao)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=RonaldoGuastalli_sessao-votacao&metric=bugs)](https://sonarcloud.io/dashboard?id=RonaldoGuastalli_sessao-votacao)
@@ -98,7 +99,7 @@ Para utilizar teste no ambiente local (dev): ```http://localhost:9001```
 Serviços disponiveis para utilizar:
 
 Criar uma pauta
-```json
+``` json
 Request:
 POST | https://sessao-votacao.herokuapp.com/sessao-votacao/v1/pauta
 {
@@ -116,7 +117,7 @@ Response:
 ```
 
 Criar uma sessão de uma pauta
-```json
+``` json
 Request:
 POST | https://sessao-votacao.herokuapp.com/sessao-votacao/v1/sessao
 {
@@ -136,7 +137,7 @@ Response:
 ```
 
 Votar em uma sessão especifica
-```json
+``` json
 Request:
 POST | https://sessao-votacao.herokuapp.com/sessao-votacao/v1/pauta/1/sessao/2/voto-sessao
 {
@@ -146,7 +147,7 @@ POST | https://sessao-votacao.herokuapp.com/sessao-votacao/v1/pauta/1/sessao/2/v
 ```
 
 Dados estatiscos da pauta (votos computados para sessões)
-```json
+``` json
 Request:
 GET | https://sessao-votacao.herokuapp.com/sessao-votacao/v1/pauta/1/pontuacao
 {
