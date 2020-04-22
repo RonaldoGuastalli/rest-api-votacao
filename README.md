@@ -6,13 +6,13 @@
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=RonaldoGuastalli_sessao-votacao&metric=bugs)](https://sonarcloud.io/dashboard?id=RonaldoGuastalli_sessao-votacao)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=RonaldoGuastalli_sessao-votacao&metric=bugs)](https://sonarcloud.io/dashboard?id=RonaldoGuastalli_sessao-votacao)
 
-- Neste projeto foi utilizado o framework Spring Boot e o desenvolvimento e desenvolvido em Java, foi utilizado Spring Data para acesso ao banco.
+- Neste projeto foi utilizado o framework Spring Boot e desenvolvido em Java, foi utilizado Spring Data para acesso ao banco.
 - Para os testes estáticos foi utilizado o banco de dados H2, por ser fácil de utilizar no serviço. Para o banco de dados remoto foi utilizado [PostgreSQL](https://www.postgresql.org/), que possui suporte free em plataformas de serviço (Paas), como o [Heroku](https://www.heroku.com/).
 
 ## Modelagem do projeto
 
 Diagrama de caso de uso foi  criado para auxiliar no levantamento dos requistos.
-![sessao-votacao-use-case](https://user-images.githubusercontent.com/13247216/79412990-32e92080-7f7d-11ea-9053-a35c1769aec4.png)
+![sessao-votacao-use-case](https://user-images.githubusercontent.com/13247216/79992325-b6c57000-8489-11ea-9b62-e76d0e6614ef.png)
 
 Diagrama de classe foi gerado inicialmente para especificar as classe principais (gerando as entidades básicas).
 ![sessao-votacao-diagrama-classe](https://user-images.githubusercontent.com/13247216/79412918-f61d2980-7f7c-11ea-84fc-e82c6a549567.png)
@@ -28,8 +28,10 @@ Para este projeto utilizou a divisão feature, contemplando assim cada feature s
 
 ## Documentação da Api
 O [Swagger](https://swagger.io) foi utilizado para documentar o contrato da aplicação. Para visualizar acesse através do endereço:
-[No servidor](https://sessao-votacao.herokuapp.com/sessao-votacao/swagger-ui.html) ou 
-localmente.  
+
+[documentaçã-swagger-no-servidor (heroku)](https://sessao-votacao.herokuapp.com/sessao-votacao/swagger-ui.html)
+ 
+ou localmente  
 ```
 http://localhost:9001/sessao-votacao/swagger-ui.html
 ```
@@ -59,7 +61,9 @@ spring.profiles.active=prod
 ``` 
 Desta forma as configurações para deploy são acionadas. No [Heroku](https://www.heroku.com/) utilizou como recurso o banco de dados Heroku Postgres, um banco baseado no [PostgreSQL](https://www.postgresql.org/) executado pelo Heroku através da utilização de [add-ons](https://elements.heroku.com/addons). Utilizou-se a opção do “robby-dev” que é um dos níveis gratuitos do Heroku. As configurações do banco dados foram setadas no Travis (Environment Variables) de forma a garantir a segurança da aplicação.
 
-O [SonarCloud](https://sonarcloud.io) foi utilizado para a cobertura análise da cobertura de teste. O relatório pode ser visualizado em: [sessao-votacao](https://sonarcloud.io/dashboard?id=RonaldoGuastalli_sessao-votacao).
+O [SonarCloud](https://sonarcloud.io) foi utilizado para a cobertura análise da cobertura de teste. O relatório pode ser visualizado em: 
+
+[relatorio-sonarcloud-sessao-votacao](https://sonarcloud.io/dashboard?id=RonaldoGuastalli_sessao-votacao)
 
 ## Mensageria com Kafka
 Utilizou-se para mensageria o [Kafka](https://kafka.apache.org/), sendo um sistema de mensageria distribuido (publish-subscribe), que é desgnado para ser rápido, scalável e durável podendo suportar grande número de consumidores e reter grande quantidades de dados com pouca sobrecarga.
@@ -69,7 +73,11 @@ Para ter em possibilidade de testar, uma mensagem produzida (producer) pela apli
 - Utilizou-se o [CloudKarafka](https://www.cloudkarafka.com/docs/index.html) que são servidores Apache Kafka gerenciados na nuvem.
 - Criou-se uma instancia do CloudKarafka do tipo ```Developer Duck``` que possibilita o plano free.
 - Quando uma pauta atinge a data de finalização, uma mensagem e publicada no tópico (```cloudkarafka.topic=08rv3461-default```).
-- Para verificar a mensagem neste tópico criou-se uma projeto simples para servir como consumer [kafka-spring-consumer](https://github.com/RonaldoGuastalli/kafka-spring-consumer), para executar o consumer:
+- Para verificar a mensagem neste tópico criou-se uma projeto simples para servir como consumer 
+
+    [kafka-spring-consumer](https://github.com/RonaldoGuastalli/kafka-spring-consumer) 
+
+Para executar o consumer:
 
 Primeira forma: No projeto acima realizar os seguintes passos
 1. git clone https://github.com/RonaldoGuastalli/kafka-spring-consumer.git;
@@ -93,8 +101,13 @@ Mensagem recebida (consumer):
 
 ## Serviços
 
-Para utilizar o serviço em produção (prod): ```https://sessao-votacao.herokuapp.com/```
-Para utilizar teste no ambiente local (dev): ```http://localhost:9001```
+Para utilizar o serviço em produção (prod): 
+
+```https://sessao-votacao.herokuapp.com/```
+
+Para utilizar teste no ambiente local (dev): 
+
+```http://localhost:9001```
 
 Serviços disponiveis para utilizar:
 
@@ -150,11 +163,6 @@ Dados estatiscos da pauta (votos computados para sessões)
 ``` json
 Request:
 GET | https://sessao-votacao.herokuapp.com/sessao-votacao/v1/pauta/1/pontuacao
-{
-    "pautaId": 1,
-    "situacao": "ATIVA",
-    "tempoAbertura": 1
-}
 Response:
 {
     "id": 1,
